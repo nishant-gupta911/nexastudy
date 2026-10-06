@@ -1,3 +1,113 @@
+<div align="center">
+
+# 🎓 MUJ Data Science Training — Batch F | Capstone Project
+
+![MUJ](https://img.shields.io/badge/University-Manipal%20University%20Jaipur-orange?style=flat-square)
+![Batch](https://img.shields.io/badge/Batch-F-blue?style=flat-square)
+![DS](https://img.shields.io/badge/Data%20Science-AI%20Training-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square)
+
+</div>
+
+---
+
+## 👤 Student Information
+
+| Field | Details |
+|-------|---------|
+| **Name** | Nishant Gupta |
+| **Registration Number** | 23FE10CDS00506 |
+| **Branch / Department** | Data Science |
+| **Batch** | Batch F |
+| **Project Title** | NexaStudy — AI-Powered RAG Study Assistant with Video Generation |
+| **GitHub Username** | [@nishant-gupta911](https://github.com/nishant-gupta911) |
+| **Training Program** | Data Science & AI — Industry Immersion Program, Manipal University Jaipur |
+
+---
+
+## 📁 Repository Structure
+
+```
+nexastudy/
+│
+├── README.md                    ← Project overview & student info
+├── requirements.txt             ← Python dependencies
+├── api.py                       ← FastAPI REST backend
+├── rag.py                       ← Core RAG engine
+├── video_gen.py                 ← Video generation pipeline
+│
+├── frontend/                    ← React + TypeScript UI
+│   └── src/
+│
+├── assignments/                 ← Weekly assignment submissions
+│   ├── week1_python_basics/
+│   ├── week2_numpy_pandas/
+│   ├── week3_visualization/
+│   ├── week4_ml_fundamentals/
+│   └── week5_deep_learning/
+│
+├── notebooks/                   ← Jupyter notebooks & experiments
+│   ├── eda_analysis.ipynb
+│   ├── model_training.ipynb
+│   └── rag_pipeline_demo.ipynb
+│
+├── code/                        ← Standalone utility scripts
+│   ├── data_preprocessing.py
+│   └── feature_engineering.py
+│
+├── resources/                   ← Reference materials & datasets
+│
+├── presentations/               ← Slide decks
+│   └── nexastudy_capstone.pdf
+│
+└── capstone/                    ← Capstone docs & contribution log
+    ├── architecture.md
+    ├── contribution_log.md
+    └── screenshots/
+```
+
+---
+
+## 📅 Weekly Progress
+
+| Week | Dates | Focus | Status |
+|------|-------|-------|--------|
+| Week 1 | Sep 4 – Sep 7 | Project scaffolding, FastAPI skeleton, env setup | ✅ Done |
+| Week 2 | Sep 11 – Sep 14 | RAG pipeline, ChromaDB, PDF ingestion | ✅ Done |
+| Week 3 | Sep 18 – Sep 21 | Gemini AI integration, DOCX/PPTX/OCR support | ✅ Done |
+| Week 4 | Sep 25 – Sep 28 | Video generation pipeline, gTTS, MoviePy | ✅ Done |
+| Week 5 | Oct 2 – Oct 5 | React/TypeScript frontend, dark UI polish | ✅ Done |
+| Week 6 | Oct 6 – Oct 7 | Final docs, cleanup, submission | ✅ Done |
+
+---
+
+## 🤝 Individual Contributions
+
+- ✅ RAG pipeline design & implementation (`rag.py`)
+- ✅ Google Gemini AI integration via LangChain
+- ✅ Multi-format document parsing (PDF, DOCX, PPTX, Images)
+- ✅ FastAPI REST backend (`api.py`)
+- ✅ Video generation pipeline with MoviePy + gTTS (`video_gen.py`)
+- ✅ React/TypeScript frontend with dark theme
+- ✅ ChromaDB vector store & hybrid retrieval
+- ✅ Testing, debugging & troubleshooting
+- ✅ Full documentation & README
+
+---
+
+## 📋 Evaluation Criteria (30 Marks)
+
+| Criteria | Max Marks |
+|----------|-----------|
+| Project Implementation & Functionality | 10 |
+| Individual Contribution (Commits, Issues, PRs, Docs) | 8 |
+| Repository Organization & Documentation | 4 |
+| Presentation & Demonstration | 4 |
+| Innovation & Problem Solving | 4 |
+| **Total** | **30** |
+
+---
+
 # ⚡ NexaStudy
 
 **NexaStudy** is a powerful, student-focused AI assistant powered by **Retrieval-Augmented Generation (RAG)**. Upload your notes, slides, PDFs, reports, datasets, and images to get intelligent, cited answers powered by Google Gemini.
