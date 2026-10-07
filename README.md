@@ -94,18 +94,6 @@ nexastudy/
 
 ---
 
-## 📋 Evaluation Criteria (30 Marks)
-
-| Criteria | Max Marks |
-|----------|-----------|
-| Project Implementation & Functionality | 10 |
-| Individual Contribution (Commits, Issues, PRs, Docs) | 8 |
-| Repository Organization & Documentation | 4 |
-| Presentation & Demonstration | 4 |
-| Innovation & Problem Solving | 4 |
-| **Total** | **30** |
-
----
 
 # ⚡ NexaStudy
 
