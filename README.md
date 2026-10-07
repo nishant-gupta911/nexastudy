@@ -322,8 +322,8 @@ Important configuration values:
 
 1. **Clone and install Python dependencies:**
    ```bash
-   python -m venv .venv312
-   source .venv312/bin/activate  # On Windows: .venv312\Scripts\activate
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    pip install -r requirements.txt
    ```
 
@@ -352,7 +352,7 @@ Important configuration values:
 ### Backend API
 
 ```bash
-.venv312/bin/uvicorn api:app --host 127.0.0.1 --port 8000
+.venv/bin/python3 -m uvicorn api:app --host 127.0.0.1 --port 8000
 ```
 
 ### Frontend

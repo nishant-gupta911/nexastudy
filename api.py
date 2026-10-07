@@ -70,11 +70,6 @@ def get_video_generator() -> VideoGenerator:
     return VideoGenerator(output_dir="./videos")
 
 
-# ... (imports)
-from fastapi.staticfiles import StaticFiles
-
-# ... (models and helper functions)
-
 app = FastAPI(title="NexaStudy API", version="1.0.0")
 
 # Mount static files to serve generated videos

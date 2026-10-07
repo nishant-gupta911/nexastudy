@@ -33,9 +33,10 @@ from uuid import uuid4
 
 # Suppress google.generativeai deprecation warning
 warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai.*")
+warnings.filterwarnings("ignore", category=FutureWarning, message=".*google.generativeai.*")
 
 import chromadb
-import fitz
+import pymupdf as fitz
 import google.generativeai as genai
 import pandas as pd
 import pytesseract

@@ -119,6 +119,12 @@ def _draw_slide(title: str, body: str) -> "Image.Image":   # type: ignore[name-d
     title_lines = _wrap_text(title, TITLE_WRAP_WIDTH)
     title_height = len(title_lines) * int(FONT_SIZE_TITLE * LINE_SPACING)
 
+    # Draw title text
+    ty = PADDING
+    for line in title_lines:
+        draw.text((PADDING, ty), line, font=font_title, fill=TEXT_COLOR)
+        ty += int(FONT_SIZE_TITLE * LINE_SPACING)
+
     # Accent bar under title
     bar_y = PADDING + title_height + 16
     draw.rectangle(
@@ -284,6 +290,7 @@ class VideoGenerator:
         current_char_count = 0
 
         def _flush() -> None:
+            nonlocal current_char_count
             if current_body_parts:
                 body = "\n".join(current_body_parts).strip()
                 if body:
