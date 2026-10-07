@@ -21,7 +21,6 @@
 | **Batch** | Batch F |
 | **Project Title** | NexaStudy — AI-Powered RAG Study Assistant with Video Generation |
 | **GitHub Username** | [@nishant-gupta911](https://github.com/nishant-gupta911) |
-| **Training Program** | Data Science & AI — Industry Immersion Program, Manipal University Jaipur |
 
 ---
 
