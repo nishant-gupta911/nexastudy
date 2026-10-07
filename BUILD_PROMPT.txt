@@ -1,0 +1,777 @@
+================================================================================
+  NEXASTUDY — COMPLETE PROJECT RECONSTRUCTION PROMPT
+  Use this file as a single prompt to an AI coding agent to rebuild the entire
+  NexaStudy project from scratch. Paste everything below the divider line.
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+  HOW TO USE THIS FILE
+────────────────────────────────────────────────────────────────────────────────
+  1. Open your AI coding agent (e.g. Cursor, Antigravity, GitHub Copilot Chat,
+     Claude, ChatGPT with code execution, Gemini Code Assist, etc.).
+  2. Create a new empty project folder.
+  3. Copy EVERYTHING below the "BEGIN PROMPT" line and paste it as your first
+     message / system prompt to the agent.
+  4. The agent should produce all files autonomously without further input.
+  5. After generation, follow the SETUP CHECKLIST at the bottom of this file.
+
+  RECOMMENDED AGENTS (in order of effectiveness):
+  *****  Antigravity IDE (Google Deepmind) — best full-stack + file creation
+  *****  Cursor Composer (claude-sonnet)   — excellent multi-file generation
+  ****   GitHub Copilot Workspace          — good for scaffolding
+  ***    ChatGPT o1 / GPT-4o (code interpreter) — requires manual file saving
+
+================================================================================
+  BEGIN PROMPT — PASTE EVERYTHING BELOW THIS LINE INTO YOUR AGENT
+================================================================================
+
+You are a senior full-stack AI engineer. Your task is to build a complete,
+production-quality project called NexaStudy from scratch. Create every file,
+directory, and configuration exactly as specified below. Do not skip any file.
+Do not use placeholder comments — write real, working code throughout.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 1 — PROJECT OVERVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Project Name : NexaStudy
+Tagline      : AI-Powered RAG Study Assistant with Video Generation
+Author       : Nishant Gupta (23FE10CDS00506), MUJ Data Science Batch F
+
+NexaStudy is a student-focused AI assistant powered by Retrieval-Augmented
+Generation (RAG). Students upload their notes, slides, PDFs, datasets, and
+images. NexaStudy extracts, chunks, embeds, and stores the content in a vector
+database. When a student asks a question, the system retrieves the most relevant
+chunks, reranks them with a cross-encoder, and generates a cited answer via the
+Google Gemini LLM. Optionally, the answer can be turned into a narrated MP4
+slide video using gTTS + MoviePy.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 2 — COMPLETE FILE & DIRECTORY STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create this exact directory tree (create all folders and all files):
+
+  nexastudy/
+  |-- .env.example              <- environment variable template
+  |-- .gitignore                <- standard Python + Node gitignore
+  |-- README.md                 <- full project documentation
+  |-- requirements.txt          <- Python dependencies (exact list below)
+  |-- api.py                    <- FastAPI REST backend
+  |-- rag.py                    <- Core RAG engine (largest file)
+  |-- video_gen.py              <- Narrated video generator
+  |-- app.py                    <- Streamlit demo UI
+  |-- prompt.txt                <- LLM system prompt template
+  |-- frontend/                 <- React + TypeScript + Vite + Tailwind v4 UI
+  |   |-- index.html
+  |   |-- package.json
+  |   |-- tsconfig.json
+  |   |-- tsconfig.app.json
+  |   |-- tsconfig.node.json
+  |   |-- vite.config.ts
+  |   `-- src/
+  |       |-- main.tsx
+  |       |-- index.css
+  |       |-- App.tsx           <- main React app (dark theme, full-featured)
+  |       `-- components/
+  |           `-- ui/
+  |               `-- claude-style-chat-input.tsx
+  |-- chroma_db/                <- auto-created at runtime by ChromaDB
+  |-- videos/                   <- auto-created at runtime for MP4 output
+  |-- assignments/
+  |   |-- week1_python_basics/
+  |   |-- week2_numpy_pandas/
+  |   |-- week3_visualization/
+  |   |-- week4_ml_fundamentals/
+  |   `-- week5_deep_learning/
+  |-- notebooks/
+  |   |-- eda_analysis.ipynb
+  |   |-- model_training.ipynb
+  |   `-- rag_pipeline_demo.ipynb
+  |-- code/
+  |   |-- data_preprocessing.py
+  |   `-- feature_engineering.py
+  |-- resources/
+  |-- presentations/
+  |-- capstone/
+  |   |-- architecture.md
+  |   `-- contribution_log.md
+  `-- srs/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 3 — PYTHON DEPENDENCIES  (requirements.txt)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Write requirements.txt with exactly these packages (no version pins):
+
+  fastapi
+  uvicorn
+  pydantic
+  python-dotenv
+  chromadb
+  PyMuPDF
+  google-generativeai
+  langchain-google-genai
+  langchain-text-splitters
+  pandas
+  pytesseract
+  python-docx
+  Pillow
+  python-pptx
+  sentence-transformers
+  gtts
+  moviepy
+  python-multipart
+  streamlit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 4 — ENVIRONMENT VARIABLES  (.env.example)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create .env.example with these keys and defaults:
+
+  GEMINI_API_KEY=your_gemini_api_key_here
+
+  CHROMA_PERSIST_DIR=./chroma_db
+  COLLECTION_NAME=student_rag
+  FEEDBACK_COLLECTION=rag_feedback
+  MEMORY_COLLECTION=rag_memory
+
+  EMBEDDING_MODEL=models/gemini-embedding-001
+  GENERATION_MODEL=models/gemini-flash-lite-latest
+  RERANKER_MODEL=cross-encoder/ms-marco-MiniLM-L-6-v2
+
+  CHUNK_SIZE=800
+  CHUNK_OVERLAP=150
+  TOP_K_RETRIEVAL=10
+  TOP_K_RERANKED=4
+
+  MAX_MEMORY_TURNS=10
+  OCR_MIN_TEXT_THRESHOLD=40
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 5 — RAG ENGINE  (rag.py)  <- MOST IMPORTANT FILE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create rag.py as a single Python module containing the class NexaStudyRAG.
+It must implement ALL of the following:
+
+5A. CLASS CONSTRUCTOR  __init__()
+  - Read all config from environment variables via os.getenv() with defaults.
+  - Call genai.configure(api_key=...) from google.generativeai.
+  - Suppress FutureWarning from google.generativeai using warnings.filterwarnings.
+  - Initialize a ChromaDB PersistentClient at CHROMA_PERSIST_DIR.
+  - Create or get three Chroma collections:
+      COLLECTION_NAME       (main knowledge store)
+      FEEDBACK_COLLECTION   (student corrections)
+      MEMORY_COLLECTION     (conversation turns)
+    All collections use cosine distance: metadata={"hnsw:space": "cosine"}
+  - Initialize GoogleGenerativeAIEmbeddings with the embedding model.
+    Use a fallback list: ["models/gemini-embedding-001", "gemini-embedding-001"]
+    Try each until one succeeds (embed a test string "test").
+  - Initialize CrossEncoder(RERANKER_MODEL) — catch ImportError, set to None.
+  - Store generation model candidates (try each at generation time):
+      ["models/gemini-flash-lite-latest", "gemini-flash-lite-latest",
+       "models/gemini-2.5-flash-lite",    "gemini-2.5-flash-lite",
+       "models/gemma-3-1b-it",            "gemma-3-1b-it"]
+  - Initialize RecursiveCharacterTextSplitter with chunk_size, chunk_overlap,
+    and separators ["\n\n", "\n", ". ", "! ", "? ", " ", ""].
+
+5B. FILE INGESTION  ingest_file(filename: str, content: bytes) -> int
+  Supported extensions and their parsers:
+    .pdf   -> PyMuPDF (fitz) with 3-layer OCR (see 5C below)
+    .pptx  -> python-pptx: extract text from all shapes across all slides;
+              include slide number in metadata; OCR any embedded images.
+    .docx  -> python-docx: extract text from paragraphs and tables.
+    .txt   -> decode as UTF-8 with latin-1 fallback.
+    .md    -> same as .txt.
+    .csv   -> pandas read_csv, convert to string.
+    .png / .jpg / .jpeg / .bmp / .webp -> OCR the raw bytes via _ocr_image().
+  After parsing, split text into chunks, embed all chunks in one batch call,
+  upsert to Chroma with metadata: {filename, chunk_index, source, timestamp}.
+  Return the count of chunks stored.
+  Raise ValueError for unsupported extensions.
+
+5C. PDF OCR PIPELINE  _extract_pdf_text(data: bytes) -> str
+  For each page in the PDF:
+    1. Extract the text layer via page.get_text("text").
+    2. Iterate embedded images on the page (page.get_images(full=True)):
+       - Extract the xref image as bytes.
+       - Run _ocr_image() on it and append the result.
+    3. If the combined text from steps 1+2 has fewer than OCR_MIN_TEXT_THRESHOLD
+       characters, render the full page to a pixmap (matrix=fitz.Matrix(2,2))
+       and run _ocr_image() on the PNG bytes of the pixmap.
+    4. Merge and join all page texts with "\n".
+
+5D. OCR  _ocr_image(image_bytes: bytes) -> str
+  Try Tesseract first (pytesseract.image_to_string). If Tesseract raises
+  TesseractNotFoundError or any OSError, fall back to Gemini vision:
+    model = genai.GenerativeModel("gemini-2.0-flash-lite")
+    response = model.generate_content([
+        "Extract all text from this image. Return only the extracted text.",
+        {"mime_type": "image/png", "data": base64.b64encode(image_bytes).decode()}
+    ])
+    return response.text
+  Return "" on any other exception.
+
+5E. HYBRID RETRIEVAL  retrieve(query: str, session_id: str) -> List[dict]
+  a) Dense retrieval: embed query -> query_embeddings, call
+     self.collection.query(query_embeddings=[q_emb], n_results=TOP_K_RETRIEVAL)
+  b) Keyword retrieval: call self.collection.query with
+     where_document={"$contains": query_lower} and n_results=TOP_K_RETRIEVAL//2
+  c) Feedback retrieval: embed query -> query feedback_collection similarly.
+  d) Merge all candidates, deduplicate by chunk id, keep unique chunks.
+  Return list of dicts with keys: {id, text, metadata, score}.
+
+5F. RERANKING  rerank(query: str, candidates: List[dict]) -> List[dict]
+  If self.reranker is not None:
+    pairs = [(query, c["text"]) for c in candidates]
+    scores = self.reranker.predict(pairs)
+    sort candidates by score descending, return top TOP_K_RERANKED.
+  Otherwise return candidates[:TOP_K_RERANKED].
+
+5G. MEMORY  save_memory() / format_memory_as_string()
+  After each chat turn, save user query and assistant answer as separate
+  documents to MEMORY_COLLECTION with metadata: {session_id, role, timestamp}.
+  On retrieval, fetch the MAX_MEMORY_TURNS most recent turns for the session,
+  ordered by timestamp (use metadata filter: where={"session_id": session_id}).
+  format_memory_as_string() returns a string of "User: ...\nAssistant: ..."
+  pairs for injection into the prompt.
+
+5H. FEEDBACK  record_feedback(query, bad_answer, correction, session_id)
+  Store an entry in FEEDBACK_COLLECTION with the corrected answer as the
+  document and metadata: {query_hash: md5(query), session_id, timestamp}.
+
+5I. PROMPT BUILDING  build_prompt(query, context_block, memory_str, feedback_str)
+  Construct the full prompt string using this exact template:
+
+  You are an expert AI study assistant helping a student understand
+  their study materials. You have access to the student's uploaded
+  documents and conversation history.
+
+  CONVERSATION HISTORY (most recent {MAX_MEMORY_TURNS} turns):
+  {memory_str}
+
+  RETRIEVED DOCUMENT CONTEXT:
+  {context_block}
+
+  PREVIOUS CORRECTIONS / FEEDBACK:
+  {feedback_str}
+
+  STUDENT QUESTION:
+  {query}
+
+  INSTRUCTIONS:
+  1. Answer ONLY based on the provided context above.
+  2. If the answer is not in the context, say:
+     "I could not find this in your uploaded documents. Here is
+      what I know generally: ..." then give a general answer.
+  3. Always cite sources: [Source: {filename}, Page/Slide {n}]
+  4. Structure: direct answer first -> supporting details -> summary.
+  5. For concepts, explain step by step in simple language.
+  6. Never fabricate. Never say you cannot help.
+  7. Match the student's language (Hindi, etc. if they write in it).
+  8. Answer the exact question first, stay tightly relevant.
+  9. Do not expose local file system paths unless explicitly asked.
+  10. For fact questions respond in 2-4 sentences max unless asked.
+  11. Present most important details first.
+  12. Never include unrelated file structure or dataset counts.
+
+5J. ANSWER GENERATION  generate_answer(query: str, session_id: str) -> dict
+  1. Call retrieve() -> rerank() to get top chunks.
+  2. Build context_block: number each chunk, include source metadata.
+  3. Get memory_str from format_memory_as_string().
+  4. Get feedback_str from feedback_collection retrieval.
+  5. Call build_prompt() to assemble the full prompt.
+  6. Try each generation_model_candidate:
+       model = genai.GenerativeModel(candidate)
+       response = model.generate_content(prompt)
+     Use the first successful response.
+  7. Call save_memory(query, answer_text, session_id).
+  8. Return dict: {answer, sources, chunks_used, model, scores}
+     - sources: deduplicated list of {filename, chunk_index}
+     - chunks_used: list of chunk text snippets (first 200 chars each)
+     - scores: reranker scores
+
+5K. UTILITY METHODS
+  list_ingested_files() -> List[str]
+    Query collection for all documents, extract unique filenames from metadata.
+  delete_file(filename: str)
+    Query collection for all chunks where metadata.filename == filename,
+    delete those IDs.
+  get_stats() -> dict
+    Return {total_chunks, total_files, embedding_model, generation_model,
+            chroma_persist_dir, collection_name}.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 6 — FASTAPI BACKEND  (api.py)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a FastAPI application with:
+
+CORS: allow_origins=["*"], allow_credentials=True, allow_methods=["*"],
+      allow_headers=["*"]
+
+Static files: mount "./videos" directory at "/videos" URL path.
+              Create the directory if it does not exist.
+
+Singleton RAG: Use @lru_cache(maxsize=1) on get_rag() which returns NexaStudyRAG().
+               Raise HTTPException(503) if initialization fails.
+
+Pydantic models:
+  ChatRequest     { query: str (min 1), session_id: str (min 1) }
+  FeedbackRequest { query, bad_answer, correction, session_id (all str, min 1) }
+  VideoRequest    { session_id: str (min 1), query: Optional[str] = None }
+
+Routes:
+  GET  /api/health
+       -> {"status": "ok", "embedding_model": ..., "generation_candidates": [...]}
+
+  GET  /api/stats
+       -> get_rag().get_stats()
+
+  GET  /api/files
+       -> {"files": get_rag().list_ingested_files()}
+
+  POST /api/upload  (multipart form, List[UploadFile])
+       For each file: read bytes, call rag.ingest_file(filename, bytes).
+       Return {"results": [{filename, chunks, status, error?}, ...]}
+
+  POST /api/chat
+       Reject if no files uploaded (HTTP 400).
+       Call rag.generate_answer(query, session_id).
+       Return {answer, sources, chunks_used, model, scores} (all JSON-safe).
+
+  DELETE /api/files/{filename:path}
+       URL-decode the filename. Reject if not in ingested files (404).
+       Call rag.delete_file(decoded). Return {"deleted": decoded}.
+
+  POST /api/feedback
+       Call rag.record_feedback(query, bad_answer, correction, session_id).
+       Return {"status": "ok"}.
+
+  POST /api/generate-video
+       Reject if no files uploaded (HTTP 400).
+       If request.query is provided: generate a fresh answer first.
+       Else extract last "Assistant:" line from memory.
+       Call VideoGenerator(output_dir="./videos").generate(answer_text, session_id).
+       Return {"video_url": "/videos/{filename}"}.
+
+Run command (include in docstring):
+  uvicorn api:app --host 127.0.0.1 --port 8000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 7 — VIDEO GENERATOR  (video_gen.py)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create video_gen.py with class VideoGenerator. No GPU required.
+
+Pipeline:
+  1. build_script(answer_text) -> List[Slide]
+     Split answer_text by "\n\n" into paragraphs.
+     First paragraph = intro slide titled "Summary".
+     Remaining paragraphs grouped 2 per slide, titled "Key Points", "Details", etc.
+     Each Slide has: title (str), body (str).
+
+  2. render_slide(slide: Slide) -> bytes  (PNG image bytes)
+     Use Pillow (PIL) to draw a 1280x720 image:
+       - Background: dark navy  RGB(15, 23, 42)
+       - Blue accent bar at top: 8px tall, full width, RGB(37, 99, 235)
+       - Title text: near-white RGB(248,250,252), font size ~52, bold if possible
+         Wrap at 20 chars/line. Top padding 80px.
+       - Body text: same color, font size ~32
+         Wrap at 36 chars/line. Below title with line spacing 1.5.
+       - Slide number in bottom-right corner, small gray text.
+     Return PNG bytes via io.BytesIO.
+
+  3. generate_audio(slide: Slide) -> bytes  (MP3 bytes)
+     Combine slide.title + " " + slide.body as TTS input.
+     Use gTTS(text=..., lang="en", slow=False).
+     Return MP3 bytes via BytesIO.
+
+  4. generate(answer_text: str, session_id: str) -> str  (path to MP4)
+     - Call build_script -> get list of Slide objects.
+     - Use a ThreadPoolExecutor to render PNG + generate MP3 in parallel per slide.
+     - For each slide, determine duration = max(SLIDE_DURATION_SEC, estimated_audio_sec).
+     - Use moviepy to:
+         a. Create an ImageClip from PNG bytes for the calculated duration.
+         b. Create an AudioFileClip from the MP3 bytes (written to a temp file).
+         c. Set the audio on the ImageClip.
+         d. Concatenate all clips with concatenate_videoclips().
+         e. Write final MP4 to output_dir/nexastudy_{session_id}_{timestamp}.mp4
+            using write_videofile(..., codec="libx264", audio_codec="aac").
+     - Clean up temp files.
+     - Return the absolute path to the MP4 file.
+
+Constants:
+  FRAME_WIDTH = 1280
+  FRAME_HEIGHT = 720
+  SLIDE_BG_COLOR = (15, 23, 42)
+  SLIDE_ACCENT_COLOR = (37, 99, 235)
+  TEXT_COLOR = (248, 250, 252)
+  TITLE_WRAP_WIDTH = 20
+  BODY_WRAP_WIDTH = 36
+  SLIDE_DURATION_SEC = 5.0
+  FONT_SIZE_TITLE = 52
+  FONT_SIZE_BODY = 32
+  LINE_SPACING = 1.5
+  PADDING = 80
+  AUDIO_SPEED_FACTOR = 1.1
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 8 — STREAMLIT UI  (app.py)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create app.py as a Streamlit demo interface:
+  - Page title: "NexaStudy — AI Study Assistant"
+  - Wide layout, dark theme via st.set_page_config.
+  - Sidebar: file uploader (accept pdf, pptx, docx, txt, md, csv, png, jpg,
+             jpeg, bmp, webp), "Upload & Ingest" button, list of ingested files
+             with delete buttons, stats display.
+  - Main area: session_id input (auto-generate UUID if empty), chat history
+    displayed using st.chat_message(), st.chat_input() at the bottom.
+  - On submit: call rag.generate_answer(), display answer + sources.
+  - Optional: "Generate Video" button that calls VideoGenerator and displays
+    a download link.
+  - Use st.session_state to persist rag instance, chat history, session_id.
+  - Show a warning if GEMINI_API_KEY is not set.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 9 — REACT FRONTEND  (frontend/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Tech stack: React 18 + TypeScript + Vite 5 + Tailwind CSS v4 + lucide-react
+
+9A. package.json
+  {
+    "name": "nexastudy-frontend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "tsc -b && vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "lucide-react": "^0.542.0",
+      "react": "^18.3.1",
+      "react-dom": "^18.3.1",
+      "tw-animate-css": "^1.3.8"
+    },
+    "devDependencies": {
+      "@tailwindcss/vite": "^4.1.12",
+      "@types/react": "^18.3.12",
+      "@types/react-dom": "^18.3.1",
+      "@vitejs/plugin-react": "^4.3.4",
+      "tailwindcss": "^4.1.12",
+      "typescript": "^5.6.3",
+      "vite": "^5.4.10"
+    }
+  }
+
+9B. vite.config.ts
+  import { defineConfig } from 'vite'
+  import react from '@vitejs/plugin-react'
+  import tailwindcss from '@tailwindcss/vite'
+  export default defineConfig({
+    plugins: [react(), tailwindcss()],
+    server: { proxy: { '/api': 'http://127.0.0.1:8000',
+                       '/videos': 'http://127.0.0.1:8000' } }
+  })
+
+9C. index.html
+  Standard Vite HTML shell with title "NexaStudy", link to /src/main.tsx.
+  Add <meta name="description" content="AI-Powered RAG Study Assistant">.
+
+9D. src/main.tsx
+  Standard React 18 createRoot render of <App />.
+
+9E. src/index.css
+  @import "tailwindcss";
+  @import "tw-animate-css";
+  Plus custom CSS variables for the dark theme color palette:
+    --bg-primary: #0f172a   (dark navy)
+    --bg-secondary: #1e293b
+    --bg-tertiary: #334155
+    --accent-primary: #2563eb  (blue)
+    --accent-secondary: #7c3aed (purple)
+    --text-primary: #f8fafc
+    --text-secondary: #94a3b8
+    --border-color: #334155
+    --success: #10b981
+    --error: #ef4444
+  Smooth scrollbar, font-family: Inter (import from Google Fonts).
+  Apply dark background and text colors to html and body.
+
+9F. src/App.tsx  <- MAIN APPLICATION (write the full component, ~600+ lines)
+  Dark-themed, production-quality React application. Include:
+
+  STATE:
+    - sessionId: string  (generate with crypto.randomUUID() on mount)
+    - messages: Array<{id, role: "user"|"assistant", content, sources?, videoUrl?}>
+    - inputText: string
+    - isLoading: boolean
+    - uploadedFiles: string[]  (list from /api/files)
+    - isDragging: boolean  (for drag-and-drop)
+    - activeTab: "chat" | "files" | "settings"
+    - stats: object from /api/stats
+    - error: string | null
+    - feedbackMode: {messageId, show} | null
+
+  API CALLS (all to http://127.0.0.1:8000):
+    fetchFiles()   -> GET /api/files
+    fetchStats()   -> GET /api/stats
+    uploadFiles()  -> POST /api/upload (multipart)
+    sendMessage()  -> POST /api/chat
+    deleteFile()   -> DELETE /api/files/{name}
+    submitFeedback() -> POST /api/feedback
+    generateVideo() -> POST /api/generate-video
+
+  LAYOUT (full-height flex, dark bg):
+    +--------------------------------------------------------------+
+    |  HEADER: "NexaStudy" logo + session badge                   |
+    |  3 nav tabs: Chat | Files | Settings                         |
+    +------------------+-------------------------------------------+
+    |  SIDEBAR (320px) |  MAIN PANEL                               |
+    |  File upload     |  Chat tab: message list                   |
+    |  (drag & drop)   |  + chat input at bottom                   |
+    |  Uploaded files  |                                           |
+    |  list with       |  Files tab: grid of files                 |
+    |  delete buttons  |  with delete & stats                      |
+    |  Stats display   |                                           |
+    |                  |  Settings tab: env var guide, model info   |
+    +------------------+-------------------------------------------+
+
+  CHAT MESSAGES:
+    - User: right-aligned bubble, accent blue background.
+    - Assistant: left-aligned, dark secondary background.
+    - Show typing indicator (animated dots) while loading.
+    - Each assistant message has:
+        * Formatted answer text (parse markdown-like bold/code inline).
+        * Collapsible "Sources" section showing filenames cited.
+        * "Generate Video" button -> calls /api/generate-video.
+        * Feedback button (thumbs up/down) to record corrections.
+        * If videoUrl is set, embed an HTML5 <video> player.
+
+  FILE UPLOAD (sidebar):
+    - Drag-and-drop zone with dashed border that highlights on dragover.
+    - Or click to open native file picker.
+    - Accept: .pdf,.pptx,.docx,.txt,.md,.csv,.png,.jpg,.jpeg,.bmp,.webp
+    - Show upload progress per file.
+    - After upload, refresh file list.
+
+  ANIMATIONS:
+    - Message slide-in on appearance (CSS transform + opacity transition).
+    - Tab switch with fade.
+    - Upload zone pulse animation on hover.
+    - Smooth scrollToBottom on new messages (useRef on message container).
+
+9G. src/components/ui/claude-style-chat-input.tsx
+  A rich chat input component:
+    - Textarea that auto-grows up to 5 lines.
+    - Send button (paper-plane icon from lucide-react).
+    - Keyboard: Enter = send, Shift+Enter = new line.
+    - Attach file button (paperclip icon).
+    - Disabled + spinner state while loading.
+    - Character counter showing length.
+    - Placeholder: "Ask anything about your documents..."
+    - Subtle gradient border that glows on focus (accent blue).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 10 — LLM SYSTEM PROMPT FILE  (prompt.txt)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create prompt.txt as a human-readable reference of the system prompt template
+used by the RAG engine. Include comments explaining each placeholder:
+  {memory_str}    -- recent conversation turns
+  {context_block} -- top-ranked retrieved document chunks
+  {feedback_str}  -- stored student corrections
+  {query}         -- the student's current question
+
+This file is documentation only; the real prompt is built dynamically in rag.py.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 11 — ADDITIONAL FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.gitignore -- cover Python (.venv, __pycache__, *.pyc, .env, chroma_db/),
+              Node (node_modules/, dist/), and OS files (.DS_Store).
+
+README.md -- comprehensive documentation including:
+  - Project description & features
+  - Full directory structure diagram
+  - Architecture pipeline (9 numbered steps)
+  - Models & methods (LLM, embeddings, vector DB, retrieval, chunking)
+  - Supported file types
+  - OCR explanation (Tesseract + Gemini fallback)
+  - How PDF extraction works (4 steps per page)
+  - Conversation memory & feedback memory
+  - Environment variables table with descriptions
+  - Getting started (prerequisites + setup steps)
+  - How to run (backend, frontend, streamlit commands)
+  - Troubleshooting section (4 common errors with fixes)
+
+capstone/architecture.md -- architecture diagram in Markdown + Mermaid:
+  Show the full pipeline from file upload -> ingestion -> vector storage ->
+  query -> hybrid retrieval -> reranking -> Gemini generation -> answer + video.
+
+capstone/contribution_log.md -- table of contributions by week.
+
+code/data_preprocessing.py -- utility functions: load_csv(), normalize_text(),
+  remove_stopwords(), handle_missing_values(). Add docstrings.
+
+code/feature_engineering.py -- utility functions: extract_tfidf_features(),
+  encode_categorical(), scale_features(). Add docstrings.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 12 — QUALITY REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CODE QUALITY (non-negotiable):
+  [x] All Python files have module-level docstrings.
+  [x] All public methods have docstrings with Args and Returns.
+  [x] Use type hints throughout (from __future__ import annotations).
+  [x] Use dataclasses where appropriate (Slide in video_gen.py).
+  [x] All exception handling is specific -- never bare except:.
+  [x] Logging via logging.getLogger(__name__), not print statements.
+  [x] No hardcoded API keys -- everything via os.getenv().
+  [x] lru_cache for singleton RAG instance in api.py.
+  [x] Graceful fallback: if Tesseract missing -> Gemini OCR.
+  [x] Graceful fallback: if one Gemini model fails -> try next candidate.
+
+FRONTEND QUALITY:
+  [x] No placeholders -- every UI element is functional.
+  [x] Responsive layout (works at 1024px - 1920px wide).
+  [x] Dark theme throughout with consistent color palette.
+  [x] Loading states and error states for every async call.
+  [x] Accessible: aria-labels, keyboard navigation, focus styles.
+  [x] No TypeScript errors (strict mode).
+  [x] Proper useEffect cleanup to avoid memory leaks.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 13 — FINAL VERIFICATION CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After generating all files, verify:
+  [ ] All files listed in Section 2 exist with real content.
+  [ ] `from rag import NexaStudyRAG` works (no ImportError).
+  [ ] `from video_gen import VideoGenerator` works.
+  [ ] `uvicorn api:app` starts without errors (given a valid GEMINI_API_KEY).
+  [ ] `npm install && npm run dev` in frontend/ starts the dev server.
+  [ ] `streamlit run app.py` starts without errors.
+  [ ] No TODO comments or placeholder functions with pass bodies.
+  [ ] requirements.txt contains all packages used in Python files.
+
+================================================================================
+  END PROMPT
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SETUP CHECKLIST  (run AFTER the agent generates all files)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1 — Prerequisites
+  Python 3.10+        -> python3 --version
+  Node.js 18+         -> node --version
+  Tesseract (optional) -> brew install tesseract        (macOS)
+                          sudo apt install tesseract-ocr  (Linux)
+
+STEP 2 — API Key
+  1. Go to https://aistudio.google.com/app/apikey
+  2. Create a free Gemini API key
+  3. cp .env.example .env
+  4. Edit .env -> set GEMINI_API_KEY=<your_key>
+
+STEP 3 — Python Backend
+  python -m venv .venv
+  source .venv/bin/activate   (Windows: .venv\Scripts\activate)
+  pip install -r requirements.txt
+
+STEP 4 — Frontend
+  cd frontend
+  npm install
+
+STEP 5 — Run
+  Terminal 1 (backend):
+    .venv/bin/python3 -m uvicorn api:app --host 127.0.0.1 --port 8000
+
+  Terminal 2 (frontend):
+    cd frontend && npm run dev -- --host 127.0.0.1 --port 5173
+
+  Terminal 3 (optional Streamlit):
+    streamlit run app.py
+
+STEP 6 — Open
+  React UI  -> http://localhost:5173
+  API docs  -> http://localhost:8000/docs
+  Streamlit -> http://localhost:8501
+
+STEP 7 — First Use
+  1. Open http://localhost:5173
+  2. Upload a PDF, PPTX, or DOCX in the left sidebar
+  3. Wait for "success" confirmation
+  4. Type a question in the chat input
+  5. Get a cited AI answer from your documents!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"GEMINI_API_KEY not found"
+  -> Ensure .env file exists in root with GEMINI_API_KEY set.
+  -> Do NOT add quotes around the value.
+
+"Tesseract not found"
+  -> Install: brew install tesseract  (macOS)
+  -> Or just ignore it -- Gemini OCR fallback activates automatically.
+
+"ChromaDB persistence error"
+  -> Check CHROMA_PERSIST_DIR permissions.
+  -> Delete chroma_db/ and let it re-create.
+
+"Model not found" (Gemini error)
+  -> The system tries 6 model candidates automatically.
+  -> Ensure your API key has access to Gemini Flash models.
+  -> Free tier keys work fine with gemini-flash-lite-latest.
+
+"npm install fails"
+  -> Ensure Node.js 18+: node --version
+  -> Try: npm install --legacy-peer-deps
+
+"Video generation fails"
+  -> Ensure moviepy is installed: pip install moviepy
+  -> Ensure ffmpeg is installed: brew install ffmpeg  (macOS)
+  -> Check ./videos/ directory exists and is writable.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ARCHITECTURE SUMMARY (for agent reference)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  INGESTION PIPELINE:
+  Upload -> Parser (PyMuPDF / pptx / docx / pandas / Pillow)
+         -> OCR layer (Tesseract -> Gemini fallback)
+         -> RecursiveCharacterTextSplitter (800 chars, 150 overlap)
+         -> GoogleGenerativeAIEmbeddings (gemini-embedding-001)
+         -> ChromaDB PersistentClient (cosine, 3 collections)
+
+  QUERY PIPELINE:
+  Query  -> Embed query
+         -> Dense retrieval    (Chroma query_embeddings)
+         -> Keyword retrieval  (Chroma where_document $contains)
+         -> Feedback retrieval (corrections collection)
+         -> Merge + deduplicate candidates
+         -> CrossEncoder reranking (ms-marco-MiniLM-L-6-v2)
+         -> Top-4 chunks -> build_prompt()
+         -> genai.GenerativeModel (flash-lite, with fallback chain)
+         -> Cited answer -> save to memory
+
+  VIDEO PIPELINE:
+  Video  -> build_script (slide objects from answer paragraphs)
+         -> render_slide (Pillow 1280x720 PNG frames)
+         -> generate_audio (gTTS MP3 per slide)
+         -> Stitch (MoviePy ImageClip + AudioFileClip -> MP4)
+
+================================================================================
+  END OF FILE -- NexaStudy BUILD_PROMPT.txt
+================================================================================
